@@ -1,6 +1,6 @@
 # Crypto News - Solana Token Tracker
 
-#### A modern web application for tracking trending Solana tokens and pools with real-time data from multiple APIs.
+### A modern web application for tracking trending Solana tokens and pools with real-time data from multiple APIs.
 
 **[Live Demo](https://solana-pulse-gules.vercel.app/)**
 
