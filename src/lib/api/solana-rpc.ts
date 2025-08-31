@@ -6,7 +6,7 @@ const RPC_ENDPOINTS = [API_ENDPOINTS.SOLANA_RPC];
 
 type CacheEntry<T> = { data: T; timestamp: number };
 const metadataCache = new Map<string, CacheEntry<SolanaTokenMetadata | null>>();
-const CACHE_TTL_MS = 60_000;
+const CACHE_TTL_MS = 3600_000;
 let lastRequestMs = 0;
 const MIN_INTERVAL_MS = 1100;
 
