@@ -2,7 +2,7 @@
 
 ### A modern web application for tracking trending Solana tokens and pools with real-time data from multiple APIs.
 
-**[Live Demo](https://solana-pulse-gules.vercel.app/)**
+## **[Live Demo](https://solana-pulse-gules.vercel.app/)**
 
 <img src="public/image_1.png" alt="Trending Solana Pools Homepage" width="80%">
 
@@ -60,11 +60,6 @@ src/
 └── types/                # TypeScript type definitions
 ```
 
-### Prerequisites
-
-- Node.js 18+ (Note: Some Solana dependencies require Node 20+)
-- Docker and Docker Compose
-- Git
 
 ### Local Development
 
@@ -91,9 +86,6 @@ docker build -t crypto-news .
 docker run -p 3000:3000 crypto-news
 ```
 
-The application will be available at `http://localhost:3000`
-
-## Configuration
 
 ### Environment Variables
 
