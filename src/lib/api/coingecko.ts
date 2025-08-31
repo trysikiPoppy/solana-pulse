@@ -12,7 +12,7 @@ const coinGeckoApi = axios.create({
 
 type CacheEntry<T> = { data: T; timestamp: number };
 const responseCache = new Map<string, CacheEntry<unknown>>();
-const CACHE_TTL_MS = 300_000;
+const CACHE_TTL_MS = 30_000;
 let lastRequestMs = 0;
 const MIN_INTERVAL_MS = 4000;
 
