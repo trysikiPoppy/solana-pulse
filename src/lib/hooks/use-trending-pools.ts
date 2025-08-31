@@ -8,7 +8,7 @@ export const useTrendingPools = () => {
       const solanaTokens = await coinGeckoService.getSolanaTokens();
       return solanaTokens.slice(0, 25);
     },
-    staleTime: 120000,
+    staleTime: 60000,
     gcTime: 600_000,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
