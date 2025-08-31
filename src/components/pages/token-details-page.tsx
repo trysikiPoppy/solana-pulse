@@ -80,17 +80,16 @@ export default function TokenDetailsPage({
             isCompletelyUnknown={isCompletelyUnknown}
           />
         )}
-        <div className="mb-4 flex justify-end">
+        <div className="flex items-center justify-between mb-6">
+          <TokenHeader
+            name={combinedData.name}
+            symbol={combinedData.symbol}
+            image={combinedData.image}
+            price={combinedData.price}
+            priceChange24h={combinedData.priceChange24h}
+          />
           <RefreshTimer onRefresh={() => refetch()} />
         </div>
-
-        <TokenHeader
-          name={combinedData.name}
-          symbol={combinedData.symbol}
-          image={combinedData.image}
-          price={combinedData.price}
-          priceChange24h={combinedData.priceChange24h}
-        />
 
         <TokenStats
           marketCap={combinedData.marketCap}
