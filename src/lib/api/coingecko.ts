@@ -10,25 +10,10 @@ const coinGeckoApi = axios.create({
   timeout: 10000,
 });
 
-let lastRequestMs = 0;
-const MIN_INTERVAL_MS = 4000;
-
-async function rateLimit(): Promise<void> {
-  const now = Date.now();
-  const delta = now - lastRequestMs;
-  if (delta < MIN_INTERVAL_MS) {
-    await new Promise((resolve) =>
-      setTimeout(resolve, MIN_INTERVAL_MS - delta)
-    );
-  }
-  lastRequestMs = Date.now();
-}
-
 async function apiRequest<T>(
   path: string,
   params?: Record<string, string | number | boolean>
 ): Promise<T> {
-  await rateLimit();
   const response = await coinGeckoApi.get(path, { params });
   return response.data as T;
 }
