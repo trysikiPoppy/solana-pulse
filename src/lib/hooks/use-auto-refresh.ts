@@ -28,13 +28,8 @@ export const useAutoRefresh = (
     return timeLeft;
   };
 
-  const resetTimer = () => {
-    setTimeLeft(refreshInterval / 1000);
-  };
-
   return {
     getTimeUntilRefresh,
     timeLeft,
-    resetTimer,
   };
 };
