@@ -10,21 +10,8 @@ const coinGeckoApi = axios.create({
   timeout: 10000,
 });
 
-type CacheEntry<T> = { data: T; timestamp: number };
-const responseCache = new Map<string, CacheEntry<unknown>>();
-const CACHE_TTL_MS = 15_000;
 let lastRequestMs = 0;
 const MIN_INTERVAL_MS = 4000;
-
-function makeKey(
-  path: string,
-  params: Record<string, string | number | boolean> = {}
-): string {
-  const search = new URLSearchParams(
-    params as Record<string, string>
-  ).toString();
-  return `${path}?${search}`;
-}
 
 async function rateLimit(): Promise<void> {
   const now = Date.now();
@@ -37,41 +24,22 @@ async function rateLimit(): Promise<void> {
   lastRequestMs = Date.now();
 }
 
-async function getWithCache<T>(
+async function apiRequest<T>(
   path: string,
   params?: Record<string, string | number | boolean>
 ): Promise<T> {
-  const key = makeKey(path, params || {});
-  const now = Date.now();
-  const cached = responseCache.get(key) as CacheEntry<T> | undefined;
-
-  if (cached && now - cached.timestamp < CACHE_TTL_MS) {
-    return cached.data;
-  }
-  if (cached && now - lastRequestMs < MIN_INTERVAL_MS) {
-    return cached.data;
-  }
-
   await rateLimit();
-  try {
-    const response = await coinGeckoApi.get(path, { params });
-    responseCache.set(key, { data: response.data, timestamp: Date.now() });
-    return response.data as T;
-  } catch (error) {
-    if (cached) {
-      return cached.data;
-    }
-    throw error;
-  }
+  const response = await coinGeckoApi.get(path, { params });
+  return response.data as T;
 }
 
 export const coinGeckoService = {
   async getTrendingCoins(): Promise<CoinGeckoTrendingResponse> {
-    return getWithCache<CoinGeckoTrendingResponse>("/search/trending");
+    return apiRequest<CoinGeckoTrendingResponse>("/search/trending");
   },
 
   async getCoinData(coinId: string): Promise<CoinGeckoCoinData> {
-    return getWithCache<CoinGeckoCoinData>(`/coins/${coinId}`, {
+    return apiRequest<CoinGeckoCoinData>(`/coins/${coinId}`, {
       localization: false,
       tickers: false,
       market_data: true,
@@ -82,7 +50,7 @@ export const coinGeckoService = {
   },
 
   async getSolanaTokens(): Promise<CoinGeckoCoinData[]> {
-    return getWithCache<CoinGeckoCoinData[]>("/coins/markets", {
+    return apiRequest<CoinGeckoCoinData[]>("/coins/markets", {
       vs_currency: "usd",
       category: "solana-ecosystem",
       order: "market_cap_desc",
