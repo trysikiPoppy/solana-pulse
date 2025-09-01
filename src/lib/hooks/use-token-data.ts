@@ -65,12 +65,7 @@ export const useTokenData = (tokenId: string) => {
         },
       };
     },
-    staleTime: 5000,
     gcTime: 600000,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    retry: false,
     enabled: !!tokenId,
   });
 };
