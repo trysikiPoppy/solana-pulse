@@ -65,7 +65,7 @@ export const useTokenData = (tokenId: string) => {
         },
       };
     },
-    staleTime: 60000,
+    staleTime: 5000,
     gcTime: 600000,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
