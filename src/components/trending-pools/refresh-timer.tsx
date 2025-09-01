@@ -12,27 +12,12 @@ const RefreshTimer = React.memo(function RefreshTimer({
   onRefresh,
 }: RefreshTimerProps): React.JSX.Element {
   const { interval } = useRefreshContext();
-  const { timeLeft, resetTimer } = useAutoRefresh(interval, onRefresh);
-
-  const handleRefresh = () => {
-    onRefresh?.();
-    resetTimer();
-  };
+  const { timeLeft } = useAutoRefresh(interval, onRefresh);
 
   return (
-    <div className="flex items-center gap-3 text-sm text-muted-foreground">
-      <div className="flex items-center">
-        <span className="mr-2">Next refresh in:</span>
-        <span className="font-medium w-8 text-left">
-          {Math.ceil(timeLeft)}s
-        </span>
-      </div>
-      <button
-        onClick={handleRefresh}
-        className="px-3 py-1 text-xs bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
-      >
-        Refresh Now
-      </button>
+    <div className="flex items-center text-sm text-muted-foreground">
+      <span className="mr-2">Next refresh in:</span>
+      <span className="font-medium w-8 text-left">{Math.ceil(timeLeft)}s</span>
     </div>
   );
 });
