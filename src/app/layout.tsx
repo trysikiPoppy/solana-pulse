@@ -26,7 +26,7 @@ export default function RootLayout({
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 5000,
+            staleTime: 30000,
             gcTime: 300000,
             retry: 2,
             refetchOnWindowFocus: false,
